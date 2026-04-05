@@ -29,19 +29,19 @@ public class LocalDateTimeAttributeConverter implements AttributeConverter<Local
         }
 
         try {
-            // Most common format for LocalDateTime
+            
             return LocalDateTime.parse(dbData, ISO_FORMATTER);
         } catch (DateTimeParseException ignored) {
         }
 
         try {
-            // Fallback for legacy SQLite storage format
+            
             return LocalDateTime.parse(dbData, SQL_FORMATTER);
         } catch (DateTimeParseException ignored) {
         }
 
         try {
-            // Fallback for epoch milliseconds stored as text/number (possibly negative)
+            
             long epochMs = Long.parseLong(dbData);
             return LocalDateTime.ofInstant(Instant.ofEpochMilli(epochMs), ZoneId.systemDefault());
         } catch (NumberFormatException ignored) {
